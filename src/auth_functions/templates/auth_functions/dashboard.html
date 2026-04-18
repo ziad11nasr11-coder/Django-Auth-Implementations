@@ -1,0 +1,50 @@
+{% extends 'auth_functions/base.html' %}
+
+{% block title %}Dashboard - System{% endblock %}
+
+{% block content %}
+<div class="container dashboard-container">
+    <div class="dashboard-header">
+        <div class="user-profile">
+            <div class="avatar">
+                {{ user.username|make_list|first|upper }}
+            </div>
+            <div class="user-info">
+                <h2>Welcome, {{ user.first_name }} {{ user.last_name }}!</h2>
+                <p>@{{ user.username }}</p>
+            </div>
+        </div>
+        <a href="{% url 'logout' %}" class="btn btn-outline" style="width: auto; padding: 0.6rem 1.25rem;">
+            <i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i> Logout
+        </a>
+    </div>
+
+    <div style="margin-bottom: 2.5rem;">
+        <h3 style="margin-bottom: 1rem; color: var(--text-primary); font-weight: 600; font-size: 1.2rem;">Account Details</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6; font-size: 0.95rem;">
+            You have successfully authenticated using the manual custom authentication implementation. Below is the secure information associated with your account in the local database.
+        </p>
+    </div>
+
+    <div class="data-grid">
+        <div class="data-card">
+            <div class="data-label"><i class="fas fa-id-badge" style="margin-right: 8px;"></i> Full Name</div>
+            <div class="data-value">{{ user.first_name }} {{ user.last_name }}</div>
+        </div>
+        <div class="data-card">
+            <div class="data-label"><i class="fas fa-user" style="margin-right: 8px;"></i> Username</div>
+            <div class="data-value">{{ user.username }}</div>
+        </div>
+        <div class="data-card">
+            <div class="data-label"><i class="fas fa-envelope" style="margin-right: 8px;"></i> Email Address</div>
+            <div class="data-value">{{ user.email }}</div>
+        </div>
+        <div class="data-card">
+            <div class="data-label"><i class="fas fa-phone" style="margin-right: 8px;"></i> Phone Number</div>
+            <div class="data-value" {% if not user.phone_number %}style="color: var(--text-secondary); font-style: italic;"{% endif %}>
+                {% if user.phone_number %}{{ user.phone_number }}{% else %}Not Provided{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

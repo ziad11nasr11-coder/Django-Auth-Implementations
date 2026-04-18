@@ -1,0 +1,90 @@
+{% extends 'auth_functions/base.html' %}
+
+{% block title %}Create Account - System{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 520px;">
+    <div class="header">
+        <h1>Create Account</h1>
+        <p>Join us today to get started with our platform</p>
+    </div>
+
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="non-field-errors">
+                {% for error in form.non_field_errors %}
+                    <p><i class="fas fa-exclamation-circle"></i> {{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                    <div class="error-message"><i class="fas fa-info-circle"></i> {{ form.first_name.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                    <div class="error-message"><i class="fas fa-info-circle"></i> {{ form.last_name.errors.0 }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div class="error-message"><i class="fas fa-info-circle"></i> {{ form.username.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email Address</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <div class="error-message"><i class="fas fa-info-circle"></i> {{ form.email.errors.0 }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.phone_number.id_for_label }}">Phone Number <span style="font-weight: 300; opacity: 0.7">(Optional)</span></label>
+            {{ form.phone_number }}
+            {% if form.phone_number.errors %}
+                <div class="error-message"><i class="fas fa-info-circle"></i> {{ form.phone_number.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.password.id_for_label }}">Password</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="error-message"><i class="fas fa-info-circle"></i> {{ form.password.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.confirm.id_for_label }}">Confirm Password</label>
+                {{ form.confirm }}
+                {% if form.confirm.errors %}
+                    <div class="error-message"><i class="fas fa-info-circle"></i> {{ form.confirm.errors.0 }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <button type="submit" class="btn" style="margin-top: 1rem;">
+            <i class="fas fa-user-plus" style="margin-right: 8px;"></i> Create Account
+        </button>
+    </form>
+
+    <div class="auth-links">
+        Already have an account? <a href="{% url 'login' %}">Sign in instead</a>
+    </div>
+</div>
+{% endblock %}

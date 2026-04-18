@@ -1,0 +1,52 @@
+{% extends 'auth_functions/base.html' %}
+
+{% block title %}Sign In - System{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1>Welcome Back</h1>
+        <p>Sign in to your account to continue</p>
+    </div>
+
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="non-field-errors">
+                {% for error in form.non_field_errors %}
+                    <p><i class="fas fa-exclamation-circle"></i> {{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div class="error-message">
+                    <i class="fas fa-info-circle"></i> {{ form.username.errors.0 }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password }}
+            {% if form.password.errors %}
+                <div class="error-message">
+                    <i class="fas fa-info-circle"></i> {{ form.password.errors.0 }}
+                </div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn" style="margin-top: 1rem;">
+            <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Sign In
+        </button>
+    </form>
+
+    <div class="auth-links">
+        Don't have an account? <a href="{% url 'register' %}">Create one now</a>
+    </div>
+</div>
+{% endblock %}
